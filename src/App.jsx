@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import NewsCard from "./NewsCard"
+import NavBarLinks from "./NavBarLink"
 
 export default function App(){
   const myURL = new URL('https://newsapi.org/v2/everything')
@@ -13,7 +14,7 @@ export default function App(){
 
   console.log(myURL)
 
- 
+  const arrLinks = ['cricket', 'soccer', 'india', 'technology', 'stock market', 'world news']
 
   async function fetchNews(){
     try {
@@ -31,6 +32,15 @@ export default function App(){
 
   return (
     <>
+      <nav>
+        <ul>
+          {
+          arrLinks.map(element => {
+            return <NavBarLinks key={element} linkName={element}/>
+          })
+          }
+        </ul>
+      </nav>
       {newsData.map((article, index) => {
       return <NewsCard key={index} articles={article}/>
     })}

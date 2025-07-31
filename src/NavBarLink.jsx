@@ -1,7 +1,7 @@
-export default function NavBarLinks(){
-
+export default function NavBarLinks(props){
+    console.log(props)
     return (
-        <li>Hello</li>
+        <li data-id={props.linkName}><a href="">{props.linkName.toUpperCase()}</a></li>
     )
 
 }
