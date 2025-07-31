@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react"
+import NewsCard from "./NewsCard"
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App(){
+  const myURL = new URL('https://newsapi.org/v2/everything')
+  const [firstSearch, setFirstSearch] = useState(myURL.searchParams.get('q'))
+  const [language, setLanguage] = useState(myURL.searchParams.get('language'))
+  const [newsData, setNewsData] = useState([])
+
+  myURL.searchParams.set('q', 'panama')
+  myURL.searchParams.set('searchIn', 'title')
+  myURL.searchParams.set('language', 'en')
+
+  console.log(myURL)
+
+ 
+
+  async function fetchNews(){
+    try {
+      const res = await fetch(myURL + `&apiKey=${import.meta.env.VITE_APP_API_KEY}`)
+      const data = await res.json()
+      console.log(data)
+      setNewsData(data.articles)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    fetchNews()
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {newsData.map((article, index) => {
+      return <NewsCard key={index} articles={article}/>
+    })}
     </>
   )
 }
-
-export default App
