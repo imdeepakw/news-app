@@ -1,5 +1,5 @@
 export default function NewsCard(props){
-    console.log(props.articles)
+    // console.log(props.articles)
     return (
         <article>
             <h1>{props.articles.title}</h1>
