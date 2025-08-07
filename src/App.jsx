@@ -12,7 +12,6 @@ export default function App(){
   myURL.searchParams.set('language', 'en')
   myURL.searchParams.set('sortBy', 'relevancy')
 
-  console.log(myURL)
 
   function handleClick(event){
     console.log(event.currentTarget.dataset.id)
@@ -25,7 +24,6 @@ export default function App(){
     try {
       const res = await fetch(myURL + `&apiKey=${import.meta.env.VITE_APP_API_KEY}`)
       const data = await res.json()
-      console.log(data.articles)
       setNewsData(data.articles)
     } catch (error) {
       console.log(error)

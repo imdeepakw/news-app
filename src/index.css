@@ -51,9 +51,6 @@ table {
     font-size: 62.5%;
     box-sizing: border-box;
 }
-nav {
-    /* border: 2px solid black; */
-}
 ul{
     /* border: 2px solid red; */
     display: flex;
