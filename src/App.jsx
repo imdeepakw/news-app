@@ -5,12 +5,12 @@ import NavBarLinks from "./NavBarLink"
 export default function App(){
   const myURL = new URL('https://newsapi.org/v2/everything')
   const [search, setSearch] = useState('panama')
-  const [language, setLanguage] = useState(myURL.searchParams.get('language'))
   const [newsData, setNewsData] = useState([])
 
   myURL.searchParams.set('q', search)
   myURL.searchParams.set('searchIn', 'title')
   myURL.searchParams.set('language', 'en')
+  myURL.searchParams.set('sortBy', 'relevancy')
 
   console.log(myURL)
 
@@ -46,9 +46,11 @@ export default function App(){
           }
         </ul>
       </nav>
-      {newsData.map((article, index) => {
+      <section className="articles">
+        {newsData.map((article, index) => {
       return <NewsCard key={index} articles={article} />
     })}
+      </section>
     </>
   )
 }
